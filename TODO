@@ -1,0 +1,8 @@
+-Need to do more testing to make sure it works as expected in more use cases.
+  -Especially need to make sure it works with and without counties specified.
+
+-Might want to think more about porjection/unprojected issues.
+
+-May want to allow the user to specify which demographic variables they are interested in.
+
+-Need to create a package.

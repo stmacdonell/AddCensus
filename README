@@ -1,0 +1,76 @@
+-This project provides a function which takes a simple features (sf) object (polygon shapefile in R) covering part of a U.S. state and returns that object with Census demographic data added to each polygon.
++**CensusVTD**
++This project was a collaboration by Sarah Hugenberger, Adrianna Maberry, Scott Macdonell,
++and Maia Woluchem at the Austin MGGG hackathon. There are two parts, (1)the Shiny app which then calls
++(2) the R script AddCensusDemographics.R (sometimes called "Scott's script") which is part of the GitHub
++repository at https://github.com/gerrymandr/Census-Data-Anywhere
+ 
+-The function is in R/AddCensusDemographics.R. Some necessary data is in data/. CensusAPI/ contains work referenced while creating this code (examples of how to access the Census API). refcode/ contains code used to test if the code is working. At the moment refcode/TestCode.R will not run locally as it refers to files not included in this repo to keep the size of the repo small. However, it provides a basic example of how to use the function AddCensusDemographics. (You may want to find some of your own shapefiles to test with before contributing.)
++**Purpose**
++Enable a user to take their own shapefile and retrieve the same shapefile with U.S. Census data added.
++The script AddCensusDemographics.R provides a function which should allow users to access this functionality within their own R scripts. The Shiny App provides an interface allowing users unfamiliar with R to access the same functionality. The Shiny app will take a zipped shapefile, user specified state and counties, and send those to AddCensusDemographics, zip the returned shapefile, and provide those for user download.
++
++**How**
++This project provides a function which takes a simple features (sf) object (polygon shapefile in R) covering part of a U.S. state and returns that object with Census demographic data added to each polygon. The function uses the Census API to download Census demographics at the block level and then determines which blocks are in which polygon from the user's sf object. The function calculates the portion of the area of each block within each of the polygons from the user's sf object. The value of a demographic within a user's polygon is then the sum of that demographic in each block times the portion of that block within the polygon.
++
++**What works right now**
++The Shiny App (and Scott's script) will run on a local machine with internet access. AddCensusDemographics only
++adds specific hardcoded demographics regarding the voting age population. Right now there are also two
++hardcoded "cheats" in the Shiny app. One is on line 139 -- we've hardcoded the county FIPS code for Middlesex,
++MA which is where our test shapefile (ArlingtonMA_VoterPrecinct.zip) is located. This cheat needs to be here because right now I don't believe Scott's script will run with county = NULL.
++The second "cheat" is on line 171. I could not get the zip command to work without hardcoding the full
++path. I tried putting that path in my environmental variables, but it didn't work. I probably need to upgrade
++my R version, but I wasn't going to do that when we were close to the end of the hackathon. It worked on
++another machine without the full path.
++
++Here is the directory structure that is needed for this script to work locally.
++--censusVTD (dir)
++	--data (dir)
++		StateAndCountyFIPScodes2010.RData
++	--R (dir)
++		AddCensusDemographics.R
++	--testing (dir)
++		(needs to be empty, delete any files before running script)
++	app.R (file)
++
++The script is run from the parent directory of censusVTD with the command runApp("censusVTD")
++
++Other necessary items once the GUI is launched are the test data (ArlingtonMA_VoterPrecinct.zip, in the
++shiny/TestingData folder on Github) and a census API key. It would be best to get your own API key which is easily
++done here:(https://api.census.gov/data/key_signup.html
++
++
++**What needs to be done**
++At the very least, the scipts need to be moved and hosted on Shiny. Since we were completely new to Shiny,
++we didn't get this far. Hopefully we wrote everything in a way that doesn't make this an impossible task.
++Part of doing this is obviously fixing the "cheats" mentioned above. Fixing the line 171 zip command is essential.
+Providing the county FIPS code saves processing time and during testing can be left hardcoded as is.
+Scott didn't get to test/adjust his script in order to have county=NULL work. So if you want to test with
+other data you will need to hardcode the correct county FIPS code for your data.
++
++**Add-ons (BIG)**
++The end goal is to turn the put the AddCensusDemographics function in Scott's script into an R package.
++
++After the user selects a state, another drop down would appear/be populated with all counties in that
++selected state. On the backend the script would need to find the FIPS code for that county and pass it
++to Scott's script. We thought it would lead to too many errors if we had the user type in the county.
++Not only spelling issues, but also counties with spaces or hyphens in the names would cause issues.
++
++Allow the user to select which demographic is mapped when they select "View Map." Most likely the user
++will download the shapefiles and make their own maps, but it would still be nice to allow them to take
++a quick look while they're still in the app. This shouldn't be too hard, it would just involve adding
++another drop down with the selection of demographics added.
++
++
++**Add-ons (little)**
++Making the layout more attractive (button colors, placement, etc)
++
++Fix the fact that the zipped file download includes the extra directory level ("testing") when the user
++gets the results.
++
++
++The function is in R/AddCensusDemographics.R. Some necessary data is in data/. CensusAPI/ contains work referenced while creating this code (examples of how to access the Census API). refcode/ contains code used to test if the code is working. refcode/TestCode.R provides a basic example of how to use the function AddCensusDemographics.
+ 
+ Outstanding issues are in TODO
++
++The Shiny app and some needed data are in shiny/
