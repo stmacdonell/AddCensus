@@ -1,4 +1,4 @@
-This project provides a function which takes a simple features (sf) object (e.g. imported shapefile) covering part of a U.S. state and returns that object with Census demographic data added to each polygon.
+This project provides a function which takes a simple features (sf) object (e.g. imported shapefile) covering all or part of a U.S. state and returns that object with Census demographic data added to each polygon.
 
 This project was started as a collaboration by Sarah Hugenberger, Adrianna Maberry, Scott Macdonell, and Maia Woluchem at the Austin MGGG hackathon.
 
