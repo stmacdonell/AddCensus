@@ -19,11 +19,9 @@
 #returns the same shapefile with Census Demographics attached
 AddCensusDemographics <- function(map,year=2010,state,county=NULL,
                                   demographicvars=NULL,api_key=NULL){
-  
+
   library(sf)
   library(tidycensus)
-  
-  load("data/StateAndCountyFIPScodes2010.RData")
 
   #make sure the state is valid
   if(!((state%in%StateAndCountyFIPScodes2010$StateAbr)|(state%in%StateAndCountyFIPScodes2010$StateFIPS))){
@@ -45,7 +43,7 @@ AddCensusDemographics <- function(map,year=2010,state,county=NULL,
       stop("Invalid County")
     }
   }
-  
+
 
   #Set demographic variables if null
   if(is.null(demographicvars)){
@@ -70,7 +68,7 @@ AddCensusDemographics <- function(map,year=2010,state,county=NULL,
   blkmap <- get_decennial(geography = "block", variables = demographicvars,
                           year=year, state = state, county = county[1], geometry = TRUE,
                           summary_var = NULL, output = "wide",key=api_key)
-  
+
   if(length(county)>1){
     for(i1 in 2:length(county)){
       countyblkmap <- get_decennial(geography = "block", variables = demographicvars,
@@ -81,12 +79,12 @@ AddCensusDemographics <- function(map,year=2010,state,county=NULL,
     }
     rm(countyblkmap,i1)
   }
-  
-  
+
+
   # blkmap <- get_decennial(geography = "block", variables = demographicvars,
   #                         state = state, geometry = TRUE, output = "wide")
-  
-  
+
+
 
   #get a copy of only the spatial data
   blkmapFull <- blkmap
