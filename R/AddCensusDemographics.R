@@ -24,7 +24,7 @@
 #'@param year The Census year from which you want data.
 #'@param state The state that contains map. Accepts FIPS code and two letter abreviation.
 #'@param county The FIPS code of the county/counties containing map. This defaults to NULL, but the function runs more quickly the fewer counties downloaded.
-#'@param demographicvars The demographic variables you want to add. If NULL (the default) it downloads the total population which is "P0010001" for 2010 and "P001001" for 1990 and 2000. Codes can be looked up at https://api.census.gov/data.html by clicking on "variables" next to the Census year you want.
+#'@param demographicvars The demographic variables you want to add. Currently requires more than one demographic variable. If NULL (the default) it downloads the total population which is "P0010001" for 2010 and "P001001" for 1990 and 2000 and the White population. Codes can be looked up at https://api.census.gov/data.html by clicking on "variables" next to the Census year you want.
 #'@param api_key Your census API key. Works with NULL (default), but you are subject to limits without a key.
 #'@return A new simple features object with U.S. Census demographic data added.
 AddCensusDemographics <- function(map,year=2010,state,county=NULL,

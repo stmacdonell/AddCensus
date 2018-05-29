@@ -1,3 +1,5 @@
+-Allow only one demographic variable.
+
 -Need to do more testing to make sure it works as expected in more use cases.
   -Especially need to make sure it works with and without counties specified.
 
