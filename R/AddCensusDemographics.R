@@ -17,6 +17,16 @@
 
 #This takes a shapefile, state (abbrevation, or FIPS code), and if desired a vector of county FIPS codes and
 #returns the same shapefile with Census Demographics attached
+
+#'Add Census demographics data to your simple features object
+#'
+#'@param map A simple features map covering a part of one (and only one) state.
+#'@param year The Census year from which you want data.
+#'@param state The state that contains map. Accepts FIPS code and two letter abreviation.
+#'@param county The FIPS code of the county/counties containing map. This defaults to NULL, but the function runs more quickly the fewer counties downloaded.
+#'@param demographicvars The demographic variables you want to add. If NULL (the default) it downloads the total population which is "P0010001" for 2010 and "P001001" for 1990 and 2000. Codes can be looked up at https://api.census.gov/data.html by clicking on "variables" next to the Census year you want.
+#'@param api_key Your census API key. Works with NULL (default), but you are subject to limits without a key.
+#'@return A new simple features object with U.S. Census demographic data added.
 AddCensusDemographics <- function(map,year=2010,state,county=NULL,
                                   demographicvars=NULL,api_key=NULL){
 
@@ -47,21 +57,22 @@ AddCensusDemographics <- function(map,year=2010,state,county=NULL,
 
   #Set demographic variables if null
   if(is.null(demographicvars)){
-  demographicvars <- c(Pop18 = "P0100001",
-                       Pop18WH = "P0100003",
-                       Pop18BL = "P0100004",
-                       Pop18AI = "P0100005",
-                       Pop18AS = "P0100006",
-                       Pop18HPI = "P0100007",
-                       Pop18HSP = "P0110002"
-                       # ,
-                       # InstitPopWhite = "PCT020A003",
-                       # InstitPopBlack = "PCT020B003",
-                       # InstitPopAmInd = "PCT020C003",
-                       # InstitPopAsian = "PCT020D003",
-                       # InstitPopNativeHawPI = "PCT020E003",
-                       # InstitPopHisp = "PCT020H003"
-                       )
+    if(year==2010){
+      demographicvars <- c(TotalPop="P0010001",
+                           WhitePop="P0030002")
+    }else{
+      if(year==2000){
+        demographicvars <- c(TotalPop="P001001",
+                             WhitePop="P003003")
+      }else{
+        if(year==1990){
+          demographicvars <- c(TotalPop="P001001",
+                               WhitePop="P0060001")
+        }else{
+          stop("Invalid year")
+        }
+      }
+    }
   }
 
   ##Need to loop through all counties

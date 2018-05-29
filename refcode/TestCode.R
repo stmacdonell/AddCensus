@@ -16,7 +16,7 @@ year <- 2010
 
 #add census demographics
 #MapWithDemographics <- AddCensusDemographics(map,api_key,state,county)
-MapWithDemographics <- AddCensusDemographics(map = map,state = state,county = county,year = year,demographicvars = demographicvars)
+MapWithDemographics <- AddCensusDemographics(map = ArlingtonMA_VoterPrecinct,state = state,county = county,year = year,demographicvars = demographicvars)
 
 #output map
 st_write(MapWithDemographics,dsn="data/test/",layer="MapWithDemographics",driver = "ESRI Shapefile")

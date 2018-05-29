@@ -9,3 +9,4 @@ Description: This package provides a function, AddCensusDemographics, which take
 License: MIT
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 6.0.1
