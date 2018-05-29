@@ -1,12 +1,12 @@
-This project provides a function which takes a simple features (sf) object (e.g. imported shapefile) covering all or part of a U.S. state and returns that object with Census demographic data added to each polygon.
+This project provides a function which takes a simple features (sf) object (e.g. imported shapefile) covering all or part of a single U.S. state and returns that object with Census demographic data added to each polygon.
 
 This project was started as a collaboration by Sarah Hugenberger, Adrianna Maberry, Scott Macdonell, and Maia Woluchem at the Austin MGGG hackathon.
 
-Initially, there were two parts, a Shiny app and the R function AddCensusDemographics.R. This project seperates out the R script to make it easily installable (i.e. devtools::install_github("stmacdonell/AddCensus"))
+Initially, there were two parts, a Shiny app and the R function AddCensusDemographics.R. This project seperates out the R script to make it easily installable (i.e. devtools::install_github("stmacdonell/AddCensus")).
 
 The function is in R/AddCensusDemographics.R. Some necessary data is in data/. Refcode/ contains code used to test if the code is working. At the moment refcode/TestCode.R will not run locally as it refers to files not included in this repo to keep the size of the repo small. However, it provides a basic example of how to use the function AddCensusDemographics. (You may want to find some of your own shapefiles to test with before contributing.)
 
-+**Purpose**
+**Purpose**
 Enable a user to take their own shapefile and retrieve the same shapefile with U.S. Census data added. The script AddCensusDemographics.R provides a function which should allow users to access this functionality within their own R scripts.
 
 **How**
