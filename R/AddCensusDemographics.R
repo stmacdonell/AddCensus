@@ -21,7 +21,7 @@
 #'Add Census demographics data to your simple features object
 #'
 #'@param map A simple features map covering a part of one (and only one) state.
-#'@param year The Census year from which you want data.
+#'@param year The Census year from which you want data. Currently only 2010 is supported.
 #'@param state The state that contains map. Accepts FIPS code and two letter abreviation.
 #'@param county The FIPS code of the county/counties containing map. This defaults to NULL, but the function runs more quickly the fewer counties downloaded.
 #'@param demographicvars The demographic variables you want to add. Currently requires more than one demographic variable. If NULL (the default) it downloads the total population which is "P0010001" for 2010 and "P001001" for 1990 and 2000 and the White population. Codes can be looked up at https://api.census.gov/data.html by clicking on "variables" next to the Census year you want.
@@ -61,18 +61,18 @@ AddCensusDemographics <- function(map,year=2010,state,county=NULL,
       demographicvars <- c(TotalPop="P0010001",
                            WhitePop="P0030002")
     }else{
-      if(year==2000){
-        demographicvars <- c(TotalPop="P001001",
-                             WhitePop="P003003")
-      }else{
-        if(year==1990){
-          demographicvars <- c(TotalPop="P001001",
-                               WhitePop="P0060001")
-        }else{
-          stop("Invalid year")
-        }
-      }
+      # if(year==2000){
+      #   demographicvars <- c(TotalPop="P001001",
+      #                        WhitePop="P003003")
+      # }else{
+      #   if(year==1990){
+      #     demographicvars <- c(TotalPop="P001001",
+      #                          WhitePop="P0060001")
+      #   }else{
+      stop("Invalid year")
     }
+    #   }
+    # }
   }
 
   ##Need to loop through all counties

@@ -4,7 +4,7 @@ Title: Add US Census data to your simple features object
 Version: 0.2.0
 Author: Scott T. Macdonell and Maia Woluchem
 Maintainer: Scott T. Macdonell <stmacdonell@gmail.com>
-Description: This package provides a function, AddCensusDemographics, which takes a simple featrues object and adds Census data to the polygons in that object. It works even if the polygons in your simple features object do not line up with Census boundaries.
+Description: This package provides a function, AddCensusDemographics, which takes a simple featrues object and adds 2010 Census data to the polygons in that object. It works even if the polygons in your simple features object do not line up with Census boundaries.
       It uses the Census API to download the requested data for each Census block in the county/counties requested, and allocates the population from each block to the polygons in your simple features object based on the percent of the block lying in each polygon.
 License: MIT
 Encoding: UTF-8
